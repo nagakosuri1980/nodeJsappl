@@ -1,0 +1,130 @@
+New Class link https://global.gotomeeting.com/join/541410469
+
+================
+azure login 
+================
+az login
+
+================
+azure logout
+================
+az logout
+
+================================
+azure resource group creation
+================================
+az group create --location EASTUS --resource-group VRITRG
+
+================================
+azure list resource group 
+================================
+az group list -o table
+
+================================
+Create Virtual Machine (google) azure CLI vm create -- https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest
+================================
+https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az_vm_create
+
+az vm create -n mylinuxvm -g vritrg --image UbuntuLTS --admin-password Vritadmin@1234 --admin-username vritadmin
+
+================================
+azure list items
+================================
+az vm list -o table
+
+Name       ResourceGroup    Location    Zones
+---------  ---------------  ----------  -------
+mylinuxvm  VRITRG           eastus
+
+================================
+azure VM delete
+================================
+az vm delete -g MyResourceGroup -n MyVm --yes
+
+================================
+azure resource group delete
+================================
+az group delete -n VRITRG
+
+================================
+azure storage account creation
+================================
+az storage account create --name
+                          --resource-group
+						  
+az storage account create -n mystorageaccountnaga -g aderesourcegroup -l westus --sku Standard_LRS		
+
+				  
+================================
+azure storage account deleted
+================================
+az storage account delete -n MyStorageAccount -g MyResourceGroup
+az storage account delete -n mystorageaccountnaga -g aderesourcegroup
+
+================================
+Combine some azure CLI commands and save it as .ps1 (power shell script) and run it ./<notepad>.ps1
+================================
+Go to Powershell command and run the above set of commands
+
+
+
+================================
+Commands and run it from Power Shell script 
+================================
+
+echo '#### Listing of Resources Group #######'
+az group list -o table
+
+echo '#### Create of Resources Group #######'
+az group create --location EASTUS --resource-group VRITRGNaga
+
+echo '#### Listing of Resources Group #######'
+az group list -o table
+
+echo '#### Listing of Storage Accounts #######'
+az storage account list -o table
+
+echo '#### create of Storage Accounts #######'
+az storage account create -n mystorageaccountnaga -g VRITRGNaga -l westus --sku Standard_LRS
+
+echo '#### Listing of Storage Accounts #######'
+az storage account list -o table
+
+========================================
+Azure Resource Manager -- ARM templates 
+========================================
+VM Create 
+   1. Subscription 
+   2. resource group 
+   3. image 
+   4. size 
+   5. username 
+   6. password
+   7. virtual networks
+   8. subnet
+   9. storage account
+
+1. Resources (mandatory)
+2. Variables (options)
+3. Parameters (options)
+
+========================================
+Online Windows VM ARM Template
+========================================
+https://docs.microsoft.com/en-us/azure/virtual-machines/windows/ps-template
+
+Save Json text as WinVM_ARM.json
+
+========================================
+ARM Template parameters
+========================================
+az deployment group create --name VM-Deploy --resource-group VRIT-RG --template-file WinVM_ARM.json
+
+make sure we have Resource Group , if not create resource group 
+
+az group create --resource-group VRIT-RG --location EASTUS
+
+
+Parameters 
+
+az deployment group create --name VM-Deploy --resource-group NAGARG09 --template-file WinVM_ARM.json  --parameters @dev-par.json
